@@ -92,6 +92,7 @@ def remove_time_bold_italics(df, special_chars):
     tag_pattern = re.compile(r'</?[ib]>', re.IGNORECASE)
     time_pattern = re.compile(r'\b\d{1,2}\s*:\s*\d{1,2}(?:\s*[:]\d+)*(?:\s*(?:AM|PM|am|pm))?\b')
     weird_emoji_pattern = re.compile(r'\[\s*Â\s*__\s*Â\s*\]|\[\s*__\s*\]', re.IGNORECASE)
+    bg_transparent_pattern = re.compile(r'</?c\.bg_transparent>', re.IGNORECASE)
     
     # Generate the pattern dynamically from the user's list
     special_chars_pattern = '|'.join(map(re.escape, special_chars))
@@ -105,6 +106,7 @@ def remove_time_bold_italics(df, special_chars):
         clean_text = tag_pattern.sub('', text)
         clean_text = time_pattern.sub('', clean_text)
         clean_text = weird_emoji_pattern.sub('', clean_text)
+        clean_text = bg_transparent_pattern.sub('', clean_text)
         
         # If NO special characters remain after stripping time/tags, it was a false positive
         if not re.search(special_chars_pattern, clean_text):
