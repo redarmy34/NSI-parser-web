@@ -1,1 +1,6 @@
 streamlit
+pandas
+joblib
+scikit-learn
+h5py
+webvtt-py
